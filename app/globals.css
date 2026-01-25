@@ -1,0 +1,443 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: auto; /* Will use custom smooth scroll */
+  }
+
+  body {
+    @apply overflow-x-hidden bg-white;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  /* Hero text - massive, responsive typography */
+  .hero-text {
+    font-size: clamp(3rem, 12vw, 10rem);
+    font-family: var(--font-playfair);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+  }
+
+  /* Section titles - large, elegant */
+  .section-title {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-family: var(--font-playfair);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  /* Section labels - small, uppercase, tracking */
+  .section-label {
+    font-family: var(--font-inter);
+    font-size: clamp(0.75rem, 1.5vw, 0.875rem);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #6b7280;
+  }
+
+  /* Body text - readable, spacious */
+  .body-text {
+    font-family: var(--font-inter);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.8;
+    color: #374151;
+  }
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #8b5cf6 #f3f4f6;
+}
+
+/* Smooth transforms for parallax - GPU accelerated */
+.parallax-element {
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+/* Mix blend mode for navigation */
+.blend-nav {
+  mix-blend-mode: difference;
+  color: white;
+}
+
+/* Scroll indicator animation */
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+.scroll-indicator {
+  animation: bounce 2s infinite;
+}
+
+/* Smooth Entrance Animations - artistic & buttery smooth */
+.animate-in {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-100px) scale(0.96);
+  transition: opacity 1.6s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-slide-left.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(100px) scale(0.96) rotate(2deg);
+  transition: opacity 1.6s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-slide-right.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1) rotate(0deg);
+}
+
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1),
+              transform 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-scale.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.animate-fade {
+  opacity: 0;
+  transition: opacity 1.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-fade.is-visible {
+  opacity: 1;
+}
+
+/* Artistic reveal animation - curtain effect */
+.animate-reveal {
+  opacity: 0;
+  clip-path: inset(0 100% 0 0);
+  transition: opacity 1.8s cubic-bezier(0.19, 1, 0.22, 1),
+              clip-path 1.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.animate-reveal.is-visible {
+  opacity: 1;
+  clip-path: inset(0 0 0 0);
+}
+
+/* Staggered animations - longer delays for smoothness */
+.stagger-1 { transition-delay: 0.15s; }
+.stagger-2 { transition-delay: 0.3s; }
+.stagger-3 { transition-delay: 0.45s; }
+.stagger-4 { transition-delay: 0.6s; }
+.stagger-5 { transition-delay: 0.75s; }
+
+/* Input styling - minimal underline with animation */
+.minimal-input {
+  @apply w-full bg-transparent border-0 border-b-2 border-gray-300 py-4 px-0 text-gray-900 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-0;
+  font-family: var(--font-inter);
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+}
+
+.minimal-input:focus {
+  border-color: #8b5cf6;
+}
+
+.minimal-textarea {
+  @apply w-full bg-transparent border-0 border-b-2 border-gray-300 py-4 px-0 text-gray-900 placeholder-gray-400 focus:border-primary focus:outline-none focus:ring-0 resize-none;
+  font-family: var(--font-inter);
+  transition: border-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Button styling with smooth artistic hover */
+.primary-button {
+  @apply bg-primary text-white px-16 py-5 text-sm font-semibold tracking-widest uppercase;
+  font-family: var(--font-inter);
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.primary-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.primary-button:hover::before {
+  left: 100%;
+}
+
+.primary-button:hover {
+  background: #7c3aed;
+  transform: translateY(-3px);
+  box-shadow: 0 25px 50px rgba(139, 92, 246, 0.4);
+  letter-spacing: 0.2em;
+}
+
+/* Elegant product card with refined hover */
+.product-card {
+  transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1),
+              box-shadow 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  transform-style: preserve-3d;
+}
+
+.product-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.12);
+}
+
+.product-card img {
+  transition: transform 0.9s cubic-bezier(0.19, 1, 0.22, 1),
+              filter 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.product-card:hover img {
+  transform: scale(1.08);
+  filter: brightness(1.03) contrast(1.02);
+}
+
+/* Overlapping layout utilities */
+.overlap-container {
+  position: relative;
+}
+
+.overlap-left {
+  position: relative;
+  z-index: 10;
+  margin-right: -10%;
+}
+
+.overlap-right {
+  position: relative;
+  z-index: 10;
+  margin-left: -10%;
+}
+
+/* Floating elements - smooth organic motion */
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) rotate(5deg);
+  }
+  66% {
+    transform: translate(-20px, -60px) rotate(-5deg);
+  }
+}
+
+.float {
+  animation: float 20s ease-in-out infinite;
+}
+
+/* Floating particles */
+@keyframes float-particle {
+  0%, 100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(100px, -100px);
+    opacity: 0.6;
+  }
+}
+
+.float-particle {
+  animation: float-particle 25s ease-in-out infinite;
+}
+
+/* Gradient shift animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Subtle pulse for text */
+@keyframes text-pulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.text-pulse {
+  animation: text-pulse 8s ease-in-out infinite;
+}
+
+/* Image parallax blur effect */
+.parallax-blur {
+  transition: filter 0.3s ease-out;
+}
+
+/* Smooth color transitions between sections */
+.section-transition {
+  transition: background-color 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Subtle image overlay effects */
+.image-overlay-gradient {
+  position: relative;
+}
+
+.image-overlay-gradient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 50%,
+    rgba(167, 139, 250, 0.05) 100%
+  );
+  opacity: 0;
+  transition: opacity 1s cubic-bezier(0.19, 1, 0.22, 1);
+  pointer-events: none;
+}
+
+.image-overlay-gradient:hover::after {
+  opacity: 1;
+}
+
+/* Text reveal effect - word by word */
+.text-reveal {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: reveal-word 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+@keyframes reveal-word {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth section divider with gradient */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.3) 50%,
+    transparent 100%
+  );
+  margin: 8rem 0;
+  opacity: 0.5;
+}
+
+/* Image aspect ratios with smooth loading */
+.portrait-image {
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.landscape-image {
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Smooth scroll snap for infinite scroll feel */
+.scroll-container {
+  scroll-snap-type: y proximity;
+  scroll-behavior: smooth;
+}
+
+.scroll-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* Decorative floating shapes */
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(167, 139, 250, 0.05));
+  backdrop-filter: blur(40px);
+  pointer-events: none;
+  animation: float 30s ease-in-out infinite;
+}
+
+/* Smooth image reveal mask */
+.mask-reveal {
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  transition: clip-path 1.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.mask-reveal.is-visible {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
